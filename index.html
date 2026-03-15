@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f5a623">
+<title>El Rincón de Apolinar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --naranja: #f5a623;
+  --naranja2: #e8920f;
+  --naranja-claro: #fff4e0;
+  --azul: #2271b3;
+  --azul-claro: #e8f2fc;
+  --verde: #2e9c6a;
+  --verde-claro: #e4f7ef;
+  --rojo: #d94f3d;
+  --rojo-claro: #fdecea;
+  --morado: #7c5cbf;
+  --morado-claro: #f0ecfa;
+  --crema: #fdf8f0;
+  --texto: #2a2118;
+  --texto2: #6b5840;
+  --texto3: #a08c72;
+  --borde: rgba(0,0,0,0.08);
+  --borde2: rgba(0,0,0,0.15);
+  --sombra: 0 4px 20px rgba(0,0,0,0.08);
+  --sombra2: 0 8px 32px rgba(0,0,0,0.12);
+  --r: 16px;
+  --r2: 24px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Nunito',sans-serif;
+  background:var(--crema);
+  color:var(--texto);
+  min-height:100dvh;
+  font-size:18px;
+  line-height:1.6;
+  overflow-x:hidden;
+  padding-bottom:100px;
+}
+
+/* ── BG decoration ── */
+body::before {
+  content:'';
+  position:fixed; top:0; left:0; right:0; height:320px;
+  background:linear-gradient(160deg, #fff9ee 0%, #ffefc8 50%, #fff4e0 100%);
+  z-index:0; pointer-events:none;
+}
+
+/* ── HEADER ── */
+header {
+  position:sticky; top:0; z-index:100;
+  background:rgba(253,248,240,0.95);
+  backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--naranja);
+  padding:12px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.header-left { display:flex; align-items:center; gap:10px; }
+.header-icon { font-size:28px; }
+.header-title {
+  font-family:'Playfair Display',serif;
+  font-size:20px; font-weight:800; color:var(--texto);
+  line-height:1.1;
+}
+.header-title span { color:var(--naranja2); }
+.header-date {
+  font-size:13px; color:var(--texto3); font-weight:600;
+  background:var(--naranja-claro); padding:4px 10px;
+  border-radius:20px; border:1px solid rgba(245,166,35,0.3);
+  white-space:nowrap;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0; z-index:100;
+  background:white;
+  border-top:2px solid var(--naranja);
+  display:flex;
+  padding-bottom:env(safe-area-inset-bottom,0);
+  box-shadow:0 -4px 20px rgba(0,0,0,0.1);
+}
+.bnav {
+  flex:1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:3px; padding:10px 4px;
+  background:none; border:none; cursor:pointer;
+  font-family:'Nunito',sans-serif; font-size:11px; font-weight:700;
+  color:var(--texto3); transition:color .2s, background .2s;
+  border-radius:0;
+}
+.bnav.active { color:var(--naranja2); background:var(--naranja-claro); }
+.bnav-icon { font-size:22px; transition:transform .2s; }
+.bnav.active .bnav-icon { transform:scale(1.2); }
+
+/* ── MAIN ── */
+main { position:relative; z-index:1; padding:20px 16px 8px; }
+.page { display:none; }
+.page.active { display:block; animation:fadeUp .3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── WELCOME CARD ── */
+.welcome-card {
+  background:linear-gradient(135deg, var(--naranja) 0%, var(--naranja2) 100%);
+  border-radius:var(--r2); padding:24px 22px; margin-bottom:20px;
+  position:relative; overflow:hidden;
+  box-shadow:0 6px 24px rgba(245,166,35,0.35);
+}
+.welcome-card::before {
+  content:'☀️'; font-size:80px; position:absolute;
+  right:-10px; top:-10px; opacity:.25; line-height:1;
+}
+.welcome-greeting {
+  font-family:'Playfair Display',serif;
+  font-size:26px; font-weight:700; color:white;
+  line-height:1.2; margin-bottom:6px;
+}
+.welcome-sub { font-size:15px; color:rgba(255,255,255,0.9); margin-bottom:16px; }
+.welcome-frase {
+  background:rgba(255,255,255,0.2); border-radius:12px;
+  padding:10px 14px; font-size:14px; color:white;
+  font-style:italic; border-left:3px solid rgba(255,255,255,0.6);
+  line-height:1.5;
+}
+
+/* ── SECTION TITLE ── */
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size:22px; font-weight:700; color:var(--texto);
+  margin-bottom:16px; display:flex; align-items:center; gap:8px;
+}
+.sec-title .ic { font-size:24px; }
+
+/* ── CARDS ── */
+.card {
+  background:white; border-radius:var(--r2);
+  border:2px solid var(--borde); margin-bottom:14px;
+  box-shadow:var(--sombra); overflow:hidden;
+}
+.card-head {
+  display:flex; align-items:center; gap:14px;
+  padding:18px 20px; cursor:pointer;
+  transition:background .15s;
+}
+.card-head:active { background:#fafafa; }
+.card-head-icon {
+  width:52px; height:52px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; flex-shrink:0;
+}
+.card-head-title { font-size:17px; font-weight:800; color:var(--texto); }
+.card-head-sub { font-size:13px; color:var(--texto3); margin-top:2px; font-weight:600; }
+.card-head-arrow { margin-left:auto; font-size:18px; color:var(--texto3); transition:transform .2s; }
+.card-head-arrow.open { transform:rotate(90deg); }
+.card-body { display:none; padding:0 20px 20px; border-top:2px dashed var(--borde); }
+.card-body.open { display:block; }
+
+/* ── LAPIZ BADGE ── */
+.lapiz-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:#fffbeb; border:2px solid #f5a623;
+  border-radius:20px; padding:6px 14px;
+  font-size:14px; font-weight:700; color:#92600a;
+  margin:14px 0 10px;
+}
+
+/* ── EXERCISE STEPS ── */
+.ex-step {
+  display:flex; gap:12px; margin-bottom:14px; padding-top:14px;
+}
+.ex-step-n {
+  width:30px; height:30px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:800; color:white; margin-top:2px;
+}
+.ex-step-t { font-size:16px; color:var(--texto2); line-height:1.6; }
+.ex-step-t strong { color:var(--texto); }
+
+/* ── TRIVIA ── */
+.trivia-q {
+  background:var(--azul-claro); border-radius:var(--r);
+  padding:16px 18px; margin:14px 0;
+  border-left:4px solid var(--azul);
+  font-size:17px; font-weight:700; color:var(--azul);
+  line-height:1.5;
+}
+.trivia-opts { display:flex; flex-direction:column; gap:8px; margin:10px 0; }
+.trivia-opt {
+  background:white; border:2px solid var(--borde2);
+  border-radius:var(--r); padding:13px 16px;
+  font-size:16px; font-weight:600; color:var(--texto);
+  cursor:pointer; transition:all .15s; text-align:left;
+  font-family:'Nunito',sans-serif;
+}
+.trivia-opt:active { transform:scale(.98); }
+.trivia-opt.correcto { background:var(--verde-claro); border-color:var(--verde); color:var(--verde); }
+.trivia-opt.incorrecto { background:var(--rojo-claro); border-color:var(--rojo); color:var(--rojo); }
+.trivia-opt.mostrar { background:var(--verde-claro); border-color:var(--verde); color:var(--verde); }
+.trivia-explain {
+  background:var(--verde-claro); border-radius:var(--r);
+  padding:14px 16px; font-size:15px; color:var(--verde);
+  font-weight:600; margin-top:10px; display:none;
+  border:2px solid var(--verde); line-height:1.6;
+}
+.trivia-explain.show { display:block; }
+.trivia-nav { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+
+/* ── BUTTONS ── */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border:none; border-radius:var(--r); padding:14px 22px;
+  font-family:'Nunito',sans-serif; font-size:16px; font-weight:800;
+  cursor:pointer; transition:all .15s; min-height:52px;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active { transform:scale(.96); }
+.btn-naranja { background:var(--naranja); color:white; box-shadow:0 4px 14px rgba(245,166,35,0.4); }
+.btn-naranja:active { background:var(--naranja2); }
+.btn-azul { background:var(--azul); color:white; box-shadow:0 4px 14px rgba(34,113,179,0.35); }
+.btn-verde { background:var(--verde); color:white; box-shadow:0 4px 14px rgba(46,156,106,0.35); }
+.btn-gris { background:#f0ebe3; color:var(--texto2); }
+.btn-full { width:100%; }
+
+/* ── MEMO GAME ── */
+.memo-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0;
+}
+.memo-card {
+  aspect-ratio:1; border-radius:12px;
+  background:var(--naranja); border:3px solid var(--naranja2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; cursor:pointer;
+  transition:all .3s; user-select:none;
+}
+.memo-card.hidden { background:var(--azul); border-color:#1a5a94; font-size:0; }
+.memo-card.matched { background:var(--verde); border-color:#237a53; opacity:.7; }
+.memo-score-row {
+  display:flex; justify-content:space-between; align-items:center;
+  background:var(--azul-claro); border-radius:var(--r);
+  padding:12px 16px; margin-bottom:12px;
+}
+.memo-score-label { font-size:14px; font-weight:700; color:var(--azul); }
+.memo-score-val { font-size:22px; font-weight:800; color:var(--azul); }
+
+/* ── TIMER ── */
+.timer-big {
+  font-family:'Playfair Display',serif;
+  font-size:48px; font-weight:700; color:var(--texto);
+  text-align:center; margin:8px 0;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── RUTINA ── */
+.rutina-item {
+  display:flex; align-items:center; gap:14px;
+  background:white; border:2px solid var(--borde);
+  border-radius:var(--r); padding:14px 16px;
+  margin-bottom:10px; cursor:pointer;
+  transition:all .2s;
+}
+.rutina-item.done { background:var(--verde-claro); border-color:var(--verde); }
+.rutina-check {
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  border:3px solid var(--borde2); background:white;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; transition:all .2s;
+}
+.rutina-item.done .rutina-check { background:var(--verde); border-color:var(--verde); color:white; }
+.rutina-label { font-size:16px; font-weight:700; color:var(--texto); flex:1; }
+.rutina-item.done .rutina-label { text-decoration:line-through; color:var(--texto3); }
+.rutina-time { font-size:13px; color:var(--texto3); font-weight:600; }
+
+/* ── PROGRESO ── */
+.prog-bar { background:#e8e0d5; border-radius:8px; height:10px; margin:6px 0 14px; overflow:hidden; }
+.prog-fill { height:100%; border-radius:8px; background:var(--verde); transition:width .5s ease; }
+
+/* ── PALABRAS ── */
+.palabras-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:14px 0;
+}
+.palabra-chip {
+  background:var(--morado-claro); border:2px solid rgba(124,92,191,0.3);
+  border-radius:12px; padding:10px 8px; text-align:center;
+  font-size:15px; font-weight:800; color:var(--morado);
+}
+
+/* ── CALENDAR REMINDER ── */
+.reminder-card {
+  background:white; border-radius:var(--r); padding:14px 16px;
+  border-left:5px solid var(--naranja); margin-bottom:10px;
+  box-shadow:var(--sombra);
+}
+.reminder-title { font-size:16px; font-weight:800; color:var(--texto); }
+.reminder-time { font-size:14px; color:var(--naranja2); font-weight:700; margin-top:2px; }
+
+/* ── RESULT BOX ── */
+.result-box {
+  border-radius:var(--r); padding:14px 16px;
+  font-size:16px; font-weight:600; line-height:1.6;
+  margin-top:12px; display:none;
+}
+.result-box.show { display:block; }
+.result-ok { background:var(--verde-claro); border:2px solid var(--verde); color:var(--verde); }
+.result-info { background:var(--azul-claro); border:2px solid var(--azul); color:var(--azul); }
+
+/* ── DIVIDER ── */
+.divider { height:2px; background:var(--borde); border-radius:2px; margin:20px 0; }
+
+/* ── TAGS ── */
+.tag {
+  display:inline-block; font-size:13px; padding:4px 12px;
+  border-radius:20px; font-weight:700; margin:3px;
+}
+.tag-naranja { background:var(--naranja-claro); color:var(--naranja2); }
+.tag-azul    { background:var(--azul-claro);    color:var(--azul); }
+.tag-verde   { background:var(--verde-claro);   color:var(--verde); }
+.tag-morado  { background:var(--morado-claro);  color:var(--morado); }
+
+/* ── SCROLL ── */
+::-webkit-scrollbar { width:0; }
+
+/* ── Tarjeta completada en Inicio ── */
+.inicio-card.completada {
+  border-color: var(--verde) !important;
+  background: linear-gradient(135deg, #e4f7ef 0%, #f0fdf8 100%) !important;
+}
+.inicio-card.completada .card-head-title { color: var(--verde) !important; }
+.inicio-card.completada .card-head-sub::before { content: '✓ '; font-weight:800; }
+.inicio-card.completada .card-head-arrow { color: var(--verde) !important; font-weight:800; }
+
+/* ── bnav completado (verde cuando la sección está hecha) ── */
+.bnav.completado:not(.active) { color: var(--verde) !important; }
+
+/* ── ANIMATIONS ── */
+.bounce { animation:bounce .4s ease; }
+@keyframes bounce { 0%{transform:scale(1)} 40%{transform:scale(1.15)} 70%{transform:scale(.95)} 100%{transform:scale(1)} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <div class="header-icon">📖</div>
+    <div>
+      <div class="header-title">El Rincón de <span>Apolinar</span></div>
+    </div>
+  </div>
+  <div class="header-date" id="hdr-date">Cargando...</div>
+</header>
+
+<main>
+
+<!-- ══ INICIO ══ -->
+<div id="p-inicio" class="page active">
+
+  <div class="welcome-card">
+    <div class="welcome-greeting" id="saludo">¡Buenos días, Apolinar!</div>
+    <div class="welcome-sub" id="welcome-fecha">Hoy es un gran día para aprender algo nuevo.</div>
+    <div class="welcome-frase" id="frase-dia">"El que lee mucho y anda mucho, ve mucho y sabe mucho." — Cervantes</div>
+  </div>
+
+  <!-- PROGRESO DEL DÍA -->
+  <div class="sec-title"><span class="ic">⭐</span> Tu progreso de hoy</div>
+  <div style="background:white;border-radius:var(--r2);padding:18px 20px;border:2px solid var(--borde);box-shadow:var(--sombra);margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+      <span style="font-size:15px;font-weight:700;color:var(--texto2)">Actividades completadas</span>
+      <span style="font-size:18px;font-weight:800;color:var(--verde)" id="prog-num">0 / 5</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px" id="prog-badges"></div>
+  </div>
+
+  <!-- ACTIVIDADES RÁPIDAS -->
+  <div class="sec-title"><span class="ic">🗓️</span> Para hoy</div>
+
+  <div class="card inicio-card" id="card-rutina" onclick="ir('rutina')">
+    <div class="card-head" style="padding:18px 20px">
+      <div class="card-head-icon" style="background:#e4f7ef">✅</div>
+      <div>
+        <div class="card-head-title">Mi rutina del día</div>
+        <div class="card-head-sub">Hábitos y recordatorios</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="card inicio-card" id="card-trivia" onclick="ir('trivia')">
+    <div class="card-head" style="padding:18px 20px">
+      <div class="card-head-icon" style="background:#e8f2fc">🧠</div>
+      <div>
+        <div class="card-head-title">Cultura general</div>
+        <div class="card-head-sub">Lee • Reflexiona • Responde</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="card inicio-card" id="card-memoria" onclick="ir('memoria')">
+    <div class="card-head" style="padding:18px 20px">
+      <div class="card-head-icon" style="background:#fff4e0">🃏</div>
+      <div>
+        <div class="card-head-title">Ejercicio de memoria</div>
+        <div class="card-head-sub">Memoriza • Escribe • Verifica</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="card inicio-card" id="card-escritura" onclick="ir('escritura')">
+    <div class="card-head" style="padding:18px 20px">
+      <div class="card-head-icon" style="background:#f0ecfa">✍️</div>
+      <div>
+        <div class="card-head-title">Ejercicio de escritura</div>
+        <div class="card-head-sub">Copia, ordena, completa • Con papel</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TRIVIA ══ -->
+<div id="p-trivia" class="page">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+    <button class="btn btn-gris" onclick="ir('inicio')" style="padding:10px 14px;font-size:20px;min-height:44px">‹</button>
+    <div class="sec-title" style="margin:0"><span class="ic">🧠</span> Cultura General</div>
+  </div>
+
+  <!-- FASE 1: LECTURA -->
+  <div id="fase-lectura">
+    <div style="background:var(--azul);border-radius:var(--r2);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+      <div style="font-size:32px">📖</div>
+      <div>
+        <div style="font-size:17px;font-weight:800;color:white">Paso 1 — Lee con atención</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.85);margin-top:2px">Luego te haré preguntas sobre lo que leíste</div>
+      </div>
+    </div>
+
+    <div id="lectura-card" style="background:white;border-radius:var(--r2);border:2px solid var(--borde);box-shadow:var(--sombra);overflow:hidden;margin-bottom:16px">
+      <!-- Encabezado del tema -->
+      <div id="lectura-header" style="padding:18px 20px 14px;border-bottom:2px solid var(--borde)">
+        <div id="lectura-categoria" style="font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px"></div>
+        <div id="lectura-titulo" style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--texto);line-height:1.25;margin-bottom:6px"></div>
+        <div id="lectura-subtitulo" style="font-size:14px;color:var(--texto3);font-weight:600"></div>
+      </div>
+      <!-- Contenido -->
+      <div id="lectura-cuerpo" style="padding:18px 20px;font-size:16px;color:var(--texto2);line-height:1.8"></div>
+      <!-- Datos clave -->
+      <div id="lectura-datos" style="background:var(--naranja-claro);padding:14px 20px;border-top:2px dashed rgba(245,166,35,0.4)"></div>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-naranja" style="flex:2;min-width:180px" id="btn-empezar" onclick="iniciarPreguntas()">
+        ✅ Ya leí — ¡Empezar preguntas!
+      </button>
+      <button class="btn btn-gris" style="flex:1;min-width:120px" onclick="nuevoTema()">
+        🔄 Otro tema
+      </button>
+    </div>
+  </div>
+
+  <!-- FASE 2: PREGUNTAS -->
+  <div id="fase-preguntas" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <button class="btn btn-gris" onclick="volverALectura()" style="padding:10px 14px;font-size:20px;min-height:44px">‹</button>
+      <div style="background:var(--verde);border-radius:var(--r2);padding:14px 18px;flex:1;display:flex;align-items:center;gap:10px">
+        <div style="font-size:28px">💡</div>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:white">Responde las preguntas</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-top:1px">Usa el tip si necesitas ayuda</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:white;border-radius:var(--r2);padding:14px 18px;border:2px solid var(--borde);box-shadow:var(--sombra);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:15px;font-weight:700;color:var(--texto2)">Pregunta <span id="triv-num">1</span> de <span id="triv-total">4</span></span>
+      <span style="font-size:16px;font-weight:800;color:var(--naranja2)">⭐ <span id="triv-pts">0</span> puntos</span>
+    </div>
+    <div class="prog-bar" style="height:10px;margin-bottom:16px"><div class="prog-fill" id="triv-prog" style="width:25%;background:var(--verde)"></div></div>
+
+    <div id="trivia-container"></div>
+  </div>
+
+  <!-- FASE 3: RESULTADO FINAL -->
+  <div id="triv-final" style="display:none;text-align:center;padding:10px 0">
+    <div style="font-size:72px;margin-bottom:12px" id="triv-emoji">🎉</div>
+    <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--texto);margin-bottom:8px">¡Bien hecho, Apolinar!</div>
+    <div style="font-size:20px;color:var(--texto2);margin-bottom:8px">Tu puntaje: <strong id="triv-final-pts" style="color:var(--naranja2)">0</strong> de <span id="triv-final-total">4</span></div>
+    <div style="font-size:17px;color:var(--verde);font-weight:700;margin-bottom:24px;padding:12px 16px;background:var(--verde-claro);border-radius:var(--r)" id="triv-msg"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+      <button class="btn btn-naranja" onclick="reiniciarTrivia()">🔄 Repetir este tema</button>
+      <button class="btn btn-azul" onclick="nuevoTemaYEmpezar()">📖 Nuevo tema</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MEMORIA ══ -->
+<div id="p-memoria" class="page">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+    <button class="btn btn-gris" onclick="ir('inicio')" style="padding:10px 14px;font-size:20px;min-height:44px">‹</button>
+    <div class="sec-title" style="margin:0"><span class="ic">🃏</span> Ejercicios de Memoria</div>
+  </div>
+
+  <!-- Ejercicio 1: Lista de palabras -->
+  <div class="card">
+    <div class="card-head" onclick="toggleCard(this)">
+      <div class="card-head-icon" style="background:var(--naranja-claro)">📋</div>
+      <div>
+        <div class="card-head-title">Lista para recordar</div>
+        <div class="card-head-sub">Lee, cierra los ojos, escribe</div>
+      </div>
+      <div class="card-head-arrow open">›</div>
+    </div>
+    <div class="card-body open">
+      <div class="lapiz-badge">✏️ Necesitas papel y lápiz</div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--naranja)">1</div>
+        <div class="ex-step-t"><strong>Lee despacio</strong> las siguientes 8 palabras. Tómate tu tiempo.</div>
+      </div>
+      <div class="palabras-grid" id="palabras-lista"></div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--azul)">2</div>
+        <div class="ex-step-t"><strong>Tapa la pantalla</strong> con tu mano o cierra los ojos por 30 segundos.</div>
+      </div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--verde)">3</div>
+        <div class="ex-step-t"><strong>Escribe en el papel</strong> todas las palabras que recuerdes.</div>
+      </div>
+      <div class="timer-big" id="mem-timer" style="display:none">00:30</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn btn-naranja" id="mem-btn" onclick="iniciarMemoria()">▶ Iniciar cronómetro</button>
+        <button class="btn btn-gris" onclick="nuevaListaPalabras()">🔄 Nueva lista</button>
+      </div>
+      <button class="btn btn-verde btn-full" style="margin-top:10px" onclick="revelarPalabras()">👁️ Ver respuestas</button>
+      <div id="mem-result" class="result-box"></div>
+    </div>
+  </div>
+
+  <!-- Ejercicio 2: Secuencia de números -->
+  <div class="card">
+    <div class="card-head" onclick="toggleCard(this)">
+      <div class="card-head-icon" style="background:var(--azul-claro)">🔢</div>
+      <div>
+        <div class="card-head-title">Secuencia de números</div>
+        <div class="card-head-sub">Memoriza y escribe en orden</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+    <div class="card-body">
+      <div class="lapiz-badge">✏️ Papel y lápiz listos</div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--azul)">1</div>
+        <div class="ex-step-t">Mira <strong>10 segundos</strong> esta secuencia de números, luego tápala.</div>
+      </div>
+      <div style="background:var(--azul-claro);border-radius:var(--r);padding:18px;text-align:center;margin:12px 0;border:2px solid rgba(34,113,179,0.3)">
+        <div id="num-secuencia" style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--azul);letter-spacing:6px"></div>
+      </div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--verde)">2</div>
+        <div class="ex-step-t"><strong>Escribe la secuencia</strong> completa en tu papel, tal como la viste.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn btn-azul" onclick="ocultarNumeros()" id="num-btn">🙈 Tapar</button>
+        <button class="btn btn-gris" onclick="nuevaSecuencia()">🔄 Nueva secuencia</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ejercicio 3: Parejas -->
+  <div class="card">
+    <div class="card-head" onclick="toggleCard(this)">
+      <div class="card-head-icon" style="background:var(--verde-claro)">🎴</div>
+      <div>
+        <div class="card-head-title">Juego de parejas</div>
+        <div class="card-head-sub">Encuentra los pares iguales</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+    <div class="card-body">
+      <div class="memo-score-row">
+        <div><div class="memo-score-label">Intentos</div><div class="memo-score-val" id="par-intentos">0</div></div>
+        <div style="text-align:center"><div class="memo-score-label">Parejas</div><div class="memo-score-val" id="par-pares">0 / 6</div></div>
+        <div style="text-align:right"><div class="memo-score-label">Tiempo</div><div class="memo-score-val" id="par-tiempo">00:00</div></div>
+      </div>
+      <div class="memo-grid" id="par-grid"></div>
+      <button class="btn btn-verde btn-full" onclick="iniciarParejas()" id="par-btn">▶ Nuevo juego</button>
+      <div id="par-result" class="result-box"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RUTINA ══ -->
+<div id="p-rutina" class="page">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+    <button class="btn btn-gris" onclick="ir('inicio')" style="padding:10px 14px;font-size:20px;min-height:44px">‹</button>
+    <div class="sec-title" style="margin:0"><span class="ic">✅</span> Mi Rutina Diaria</div>
+  </div>
+
+  <div style="background:white;border-radius:var(--r2);padding:16px 20px;border:2px solid var(--borde);box-shadow:var(--sombra);margin-bottom:18px">
+    <div style="font-size:15px;font-weight:700;color:var(--texto2);margin-bottom:6px">Completadas hoy</div>
+    <div class="prog-bar"><div class="prog-fill" id="rut-prog" style="width:0%"></div></div>
+    <div style="font-size:15px;font-weight:800;color:var(--verde);text-align:right" id="rut-txt">0 de 7</div>
+  </div>
+
+  <div class="sec-title" style="font-size:17px"><span class="ic">🌅</span> Mañana</div>
+  <div id="rutina-manana"></div>
+
+  <div class="sec-title" style="font-size:17px"><span class="ic">☀️</span> Tarde</div>
+  <div id="rutina-tarde"></div>
+
+  <div class="sec-title" style="font-size:17px"><span class="ic">🌙</span> Noche</div>
+  <div id="rutina-noche"></div>
+
+  <button class="btn btn-gris btn-full" style="margin-top:6px" onclick="resetRutina()">🔄 Reiniciar todas</button>
+</div>
+
+<!-- ══ ESCRITURA ══ -->
+<div id="p-escritura" class="page">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+    <button class="btn btn-gris" onclick="ir('inicio')" style="padding:10px 14px;font-size:20px;min-height:44px">‹</button>
+    <div class="sec-title" style="margin:0"><span class="ic">✍️</span> Ejercicio de Escritura</div>
+  </div>
+
+  <div class="lapiz-badge">✏️ Este ejercicio es 100% con papel</div>
+
+  <!-- Ejercicio: Copia el texto -->
+  <div class="card">
+    <div class="card-head" onclick="toggleCard(this)">
+      <div class="card-head-icon" style="background:var(--morado-claro)">📝</div>
+      <div>
+        <div class="card-head-title">Copia la frase del arquitecto</div>
+        <div class="card-head-sub">Escritura y atención al detalle</div>
+      </div>
+      <div class="card-head-arrow open">›</div>
+    </div>
+    <div class="card-body open">
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--morado)">1</div>
+        <div class="ex-step-t"><strong>Lee</strong> la siguiente frase de un gran arquitecto.</div>
+      </div>
+      <div style="background:var(--morado-claro);border-radius:var(--r);padding:16px 18px;margin:10px 0;border-left:4px solid var(--morado)">
+        <div id="refran-texto" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--morado);line-height:1.5"></div>
+      </div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--morado)">2</div>
+        <div class="ex-step-t"><strong>Cópiala en tu papel</strong>, letra por letra, lo más legible posible.</div>
+      </div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--morado)">3</div>
+        <div class="ex-step-t">Ahora <strong>tapa la pantalla</strong> y escríbela de memoria en el papel.</div>
+      </div>
+      <button class="btn btn-gris btn-full" style="margin-top:6px" onclick="nuevoRefran()">🔄 Otra frase de arquitecto</button>
+    </div>
+  </div>
+
+  <!-- Ejercicio: Ordena la frase -->
+  <div class="card">
+    <div class="card-head" onclick="toggleCard(this)">
+      <div class="card-head-icon" style="background:var(--naranja-claro)">🔀</div>
+      <div>
+        <div class="card-head-title">Ordena la frase</div>
+        <div class="card-head-sub">Reorganiza las palabras</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+    <div class="card-body">
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--naranja)">1</div>
+        <div class="ex-step-t">Las siguientes palabras forman una frase. <strong>Ordénalas en tu papel</strong> para que tengan sentido.</div>
+      </div>
+      <div id="frase-desordenada" style="background:var(--naranja-claro);border-radius:var(--r);padding:16px;margin:12px 0;display:flex;flex-wrap:wrap;gap:8px;border:2px dashed rgba(245,166,35,0.5)"></div>
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--verde)">2</div>
+        <div class="ex-step-t">¿Ya la tienes? Toca el botón para <strong>ver la respuesta</strong>.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-verde" onclick="verRespuestaFrase()" id="frase-btn">👁️ Ver respuesta</button>
+        <button class="btn btn-gris" onclick="nuevaFrase()">🔄 Nueva frase</button>
+      </div>
+      <div id="frase-respuesta" class="result-box result-ok" style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700"></div>
+    </div>
+  </div>
+
+  <!-- Ejercicio: Completa la palabra -->
+  <div class="card">
+    <div class="card-head" onclick="toggleCard(this)">
+      <div class="card-head-icon" style="background:var(--azul-claro)">🔤</div>
+      <div>
+        <div class="card-head-title">Completa el término</div>
+        <div class="card-head-sub">Vocabulario de arquitectura • Con papel</div>
+      </div>
+      <div class="card-head-arrow">›</div>
+    </div>
+    <div class="card-body">
+      <div class="ex-step">
+        <div class="ex-step-n" style="background:var(--azul)">1</div>
+        <div class="ex-step-t">Lee la pista y <strong>escribe en tu papel</strong> la palabra completa.</div>
+      </div>
+      <div id="completar-container"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn btn-azul" onclick="verCompletada()" id="comp-btn">👁️ Ver respuesta</button>
+        <button class="btn btn-gris" onclick="nuevaCompletada()">🔄 Siguiente</button>
+      </div>
+      <div id="comp-respuesta" class="result-box result-info"></div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bnav active" id="bnav-inicio" onclick="irNav('inicio',this)">
+    <div class="bnav-icon">🏠</div>
+    <span>Inicio</span>
+  </button>
+  <button class="bnav" id="bnav-rutina" onclick="irNav('rutina',this)">
+    <div class="bnav-icon">✅</div>
+    <span>Rutina</span>
+  </button>
+  <button class="bnav" id="bnav-trivia" onclick="irNav('trivia',this)">
+    <div class="bnav-icon">🧠</div>
+    <span>Cultura</span>
+  </button>
+  <button class="bnav" id="bnav-memoria" onclick="irNav('memoria',this)">
+    <div class="bnav-icon">🃏</div>
+    <span>Memoria</span>
+  </button>
+  <button class="bnav" id="bnav-escritura" onclick="irNav('escritura',this)">
+    <div class="bnav-icon">✍️</div>
+    <span>Escritura</span>
+  </button>
+</nav>
+
+<script>
+// ══ FECHA Y SALUDO ══
+const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+// Frases de grandes arquitectos — rotan cada día del año
+const REFRANES = [
+  '"Llamo a la arquitectura música congelada." — Johann Wolfgang von Goethe',
+  '"La forma sigue a la función." — Louis Sullivan',
+  '"Una casa es una máquina para vivir." — Le Corbusier',
+  '"El arquitecto debe ser un profeta… un profeta en el verdadero sentido del término. Si no puede ver al menos diez años hacia adelante, no lo llamen arquitecto." — Frank Lloyd Wright',
+  '"La arquitectura debería hablar de su tiempo y lugar, pero anhelar la atemporalidad." — Frank Gehry',
+  '"Dios está en los detalles." — Ludwig Mies van der Rohe',
+  '"Mi casa es mi refugio, una pieza emocional de arquitectura, no una pieza fría de conveniencia." — Luis Barragán',
+  '"La arquitectura es el juego sabio, correcto y magnífico de los volúmenes bajo la luz." — Le Corbusier',
+  '"La arquitectura es vida; la vida misma tomando forma, y por lo tanto el documento más sincero de la vida tal como fue vivida." — Frank Lloyd Wright',
+  '"Los arquitectos pasan toda una vida con esta idea razonable de que se puede luchar contra la gravedad." — Renzo Piano',
+  '"La arquitectura moderna no significa el uso de nuevos materiales, sino utilizar los materiales existentes de una forma más humana." — Alvar Aalto',
+  '"El espacio y la luz y el orden. Son las cosas que los hombres necesitan tanto como el pan y un lugar donde dormir." — Le Corbusier',
+  '"La arquitectura comienza donde termina la ingeniería." — Walter Gropius',
+  '"No hay arquitectura sin una filosofía. No hay arte de ningún tipo sin su propia filosofía." — Frank Lloyd Wright',
+  '"La belleza perece en la vida, pero es inmortal en el arte." — Zaha Hadid',
+];
+function initFecha() {
+  const now = new Date();
+  const h = now.getHours();
+  const saludo = h < 12 ? '¡Buenos días' : h < 18 ? '¡Buenas tardes' : '¡Buenas noches';
+  document.getElementById('saludo').textContent = `${saludo}, Apolinar!`;
+  const fecha = `${DIAS[now.getDay()]} ${now.getDate()} de ${MESES[now.getMonth()]} de ${now.getFullYear()}`;
+  document.getElementById('welcome-fecha').textContent = `Hoy es ${fecha}.`;
+  document.getElementById('hdr-date').textContent = `${now.getDate()} ${MESES[now.getMonth()].slice(0,3).toUpperCase()}`;
+  // Frase del día rota según el día del año
+  const diaDelAnio = Math.floor((now - new Date(now.getFullYear(),0,0)) / 86400000);
+  document.getElementById('frase-dia').textContent = REFRANES[diaDelAnio % REFRANES.length];
+}
+initFecha();
+
+// ══ NAV ══
+let activePage = 'inicio';
+function ir(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.bnav').forEach(b => b.classList.remove('active'));
+  document.getElementById('p-' + id).classList.add('active');
+  const bnav = document.querySelector(`.bnav[onclick*="${id}"]`);
+  if (bnav) bnav.classList.add('active');
+  activePage = id;
+  window.scrollTo(0, 0);
+}
+function irNav(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.bnav').forEach(b => b.classList.remove('active'));
+  document.getElementById('p-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function toggleCard(head) {
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.card-head-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// ══ PROGRESO ══
+let progreso = { trivia:false, memoria:false, rutina:false, escritura:false, parejas:false };
+
+// Mapeo: key de progreso → id de card en inicio + id de bnav
+const PROG_MAP = {
+  trivia:   { card:'card-trivia',   bnav:'bnav-trivia',   icon:'🧠' },
+  memoria:  { card:'card-memoria',  bnav:'bnav-memoria',  icon:'📋' },
+  parejas:  { card:'card-memoria',  bnav:'bnav-memoria',  icon:'🎴' },
+  rutina:   { card:'card-rutina',   bnav:'bnav-rutina',   icon:'✅' },
+  escritura:{ card:'card-escritura',bnav:'bnav-escritura',icon:'✍️' },
+};
+
+function updateProg() {
+  const done = Object.values(progreso).filter(Boolean).length;
+  const total = 5;
+  document.getElementById('prog-num').textContent = `${done} / ${total}`;
+  document.getElementById('prog-fill').style.width = `${(done/total)*100}%`;
+
+  // Colorear cards e inicio del bnav según progreso
+  Object.entries(progreso).forEach(([key, val]) => {
+    const map = PROG_MAP[key];
+    if (!map) return;
+    // Card en inicio
+    const card = document.getElementById(map.card);
+    if (card) card.classList.toggle('completada', val);
+    // Botón nav inferior
+    const bnav = document.getElementById(map.bnav);
+    if (bnav) bnav.classList.toggle('completado', val);
+  });
+
+  // Badges de progreso
+  const badges = document.getElementById('prog-badges');
+  const keys = ['rutina','trivia','memoria','escritura','parejas'];
+  badges.innerHTML = keys.map(k => {
+    const v = progreso[k];
+    const map = PROG_MAP[k];
+    return `<span class="tag ${v ? 'tag-verde' : ''}" style="${!v ? 'opacity:.4' : ''}">${map.icon}${v ? ' ✓' : ''}</span>`;
+  }).join('');
+}
+updateProg();
+
+// ══ TEMAS DE LECTURA + PREGUNTAS ══
+const TEMAS = [
+  {
+    categoria: '🏛️ Arquitectura',
+    titulo: 'La Sagrada Familia de Barcelona',
+    subtitulo: 'La obra maestra inacabada de Antoni Gaudí',
+    color: 'var(--azul)',
+    cuerpo: `La Sagrada Família es una basílica católica en Barcelona, España, y probablemente el edificio más famoso del arquitecto Antoni Gaudí. Su construcción comenzó en <strong>1882</strong> y, sorprendentemente, todavía no ha terminado — lleva más de 140 años en obras.
+
+Gaudí dedicó los últimos 43 años de su vida exclusivamente a este proyecto. Cuando murió en 1926 atropellado por un tranvía, solo estaba terminado el ábside y una torre. Sin embargo, dejó maquetas y planos detallados que han guiado a los arquitectos que siguieron su obra.
+
+El edificio tiene una forma completamente innovadora: combina el estilo <strong>gótico</strong> con el <strong>Art Nouveau</strong> y formas tomadas directamente de la naturaleza. Las columnas interiores se ramifican como árboles. Las torres se elevan como estalactitas de una cueva. Gaudí decía que "la naturaleza es el gran libro abierto" y así lo reflejó en cada detalle.
+
+Cuando esté terminado — se espera para <strong>2026</strong>, centenario de la muerte de Gaudí — tendrá <strong>18 torres</strong>, siendo la central de 172 metros la más alta. Actualmente ya es Patrimonio de la Humanidad y recibe más de 4 millones de visitantes al año.`,
+    datos: [
+      { ic: '📅', label: 'Inicio de construcción', val: '1882 — lleva más de 140 años' },
+      { ic: '🏗️', label: 'Altura de la torre central', val: '172 metros al terminarse' },
+      { ic: '👤', label: 'Arquitecto principal', val: 'Antoni Gaudí (1852–1926)' },
+      { ic: '🎯', label: 'Fecha estimada de terminación', val: '2026, centenario de Gaudí' },
+    ],
+    preguntas: [
+      { p:'¿En qué año comenzó la construcción de la Sagrada Família?', ops:['1852','1882','1900','1926'], r:1, tip:'Es el mismo año que aparece al inicio del texto, cuando se habla de cuándo comenzaron las obras.', exp:'La construcción comenzó en 1882. Gaudí tomó el proyecto en 1883, un año después.' },
+      { p:'¿Cuántos años dedicó Gaudí exclusivamente a la Sagrada Família?', ops:['20 años','30 años','43 años','55 años'], r:2, tip:'El texto dice que Gaudí murió en 1926. Él tomó el proyecto en 1883. Haz la resta.', exp:'Gaudí trabajó 43 años en el proyecto, desde 1883 hasta su muerte en 1926.' },
+      { p:'¿Qué combinación de estilos usa la Sagrada Família?', ops:['Romano y Barroco','Gótico y Art Nouveau','Neoclásico y Moderno','Renacentista y Árabe'], r:1, tip:'El texto menciona dos estilos específicos. Uno era típico de las catedrales medievales y el otro era un movimiento artístico de finales del siglo XIX.', exp:'Gaudí combinó el gótico tradicional con el Art Nouveau y formas de la naturaleza, creando un estilo único e irrepetible.' },
+      { p:'¿Cuántas torres tendrá la Sagrada Família al terminarse?', ops:['8 torres','12 torres','15 torres','18 torres'], r:3, tip:'El número está en el último párrafo del texto, donde habla de cuándo esté terminado el edificio.', exp:'La Sagrada Família tendrá 18 torres en total. La central, dedicada a Jesucristo, será la más alta con 172 metros.' },
+    ]
+  },
+  {
+    categoria: '🏛️ Arquitectura colombiana',
+    titulo: 'Rogelio Salmona y las Torres del Parque',
+    subtitulo: 'El arquitecto más importante de Colombia',
+    color: 'var(--rojo)',
+    cuerpo: `Rogelio Salmona (1927–2007) es considerado el arquitecto más importante de la historia de Colombia. Nació en París pero vivió toda su vida en Bogotá, ciudad que transformó con su obra.
+
+Salmona estudió en París junto al mismísimo <strong>Le Corbusier</strong>, uno de los padres de la arquitectura moderna. Sin embargo, cuando regresó a Colombia, Salmona tomó un camino propio: en lugar de usar concreto gris y vidrio frío como se hacía en Europa, decidió trabajar con el <strong>ladrillo artesanal colombiano</strong> como material principal.
+
+Su obra más famosa son las <strong>Torres del Parque</strong> en Bogotá (1970–1977), tres edificios de apartamentos junto a la Plaza de Toros La Santamaría. Lo extraordinario es cómo estos edificios se integran al terreno: siguen las curvas del cerro de Monserrate, sus espacios públicos están llenos de agua y vegetación, y el ladrillo dialoga con el color rojizo de la tierra colombiana.
+
+Salmona siempre dijo que la arquitectura debía ser para las personas, no para los arquitectos. Sus edificios invitan a caminar, a sentarse, a quedarse. Recibió el <strong>Premio Alvar Aalto</strong> en 2003, el mayor reconocimiento en arquitectura en América Latina.`,
+    datos: [
+      { ic: '🗓️', label: 'Años de vida', val: '1927 – 2007 (80 años)' },
+      { ic: '🎓', label: 'Maestro en París', val: 'Estudió con Le Corbusier' },
+      { ic: '🧱', label: 'Material favorito', val: 'Ladrillo artesanal colombiano' },
+      { ic: '🏆', label: 'Premio mayor', val: 'Premio Alvar Aalto, 2003' },
+    ],
+    preguntas: [
+      { p:'¿Con qué arquitecto famoso estudió Rogelio Salmona?', ops:['Frank Lloyd Wright','Mies van der Rohe','Le Corbusier','Walter Gropius'], r:2, tip:'El texto lo dice claramente en el segundo párrafo. Es un arquitecto suizo-francés considerado el padre de la arquitectura moderna.', exp:'Salmona estudió en París con Le Corbusier (1887–1965), uno de los más influyentes arquitectos del siglo XX.' },
+      { p:'¿Cuál es el material característico que usó Salmona en Colombia?', ops:['Concreto visto','Vidrio y acero','Ladrillo artesanal colombiano','Piedra tallada'], r:2, tip:'El texto dice que Salmona rechazó los materiales europeos y eligió algo más propio de Colombia.', exp:'El ladrillo artesanal colombiano es la firma de Salmona. Su color rojo dialoga con la tierra y las montañas bogotanas.' },
+      { p:'¿Dónde están ubicadas las Torres del Parque?', ops:['Medellín, junto al metro','Bogotá, junto a la Plaza de Toros La Santamaría','Cali, frente al río Cauca','Cartagena, cerca de la muralla'], r:1, tip:'El texto menciona tanto la ciudad como el edificio histórico junto al que están ubicadas las Torres.', exp:'Las Torres del Parque están en Bogotá, junto a La Santamaría. Salmona las diseñó siguiendo las curvas del cerro de Monserrate.' },
+      { p:'¿Qué premio recibió Rogelio Salmona en 2003?', ops:['Premio Pritzker','Premio Mies van der Rohe','Premio Alvar Aalto','Premio Internacional de Arquitectura'], r:2, tip:'El nombre del premio está en el último párrafo del texto, y corresponde a un arquitecto finlandés muy famoso.', exp:'El Premio Alvar Aalto es el máximo reconocimiento en arquitectura en América Latina. Salmona lo recibió en 2003.' },
+    ]
+  },
+  {
+    categoria: '🌍 Historia Universal',
+    titulo: 'El Coliseo Romano',
+    subtitulo: 'La mayor obra de ingeniería del Imperio Romano',
+    color: 'var(--naranja2)',
+    cuerpo: `El Coliseo de Roma, conocido también como Anfiteatro Flavio, es el anfiteatro más grande jamás construido y una de las obras de ingeniería más impresionantes de la historia. Fue construido entre los años <strong>70 y 80 d.C.</strong> durante los reinados de los emperadores Vespasiano y Tito.
+
+Con una capacidad para entre <strong>50.000 y 80.000 espectadores</strong>, el Coliseo albergaba combates de gladiadores, caza de animales exóticos, representaciones de batallas navales y ejecuciones públicas. El suelo de la arena podía inundarse para simular batallas en el mar.
+
+Lo que más asombra a los ingenieros y arquitectos modernos es su sistema de <strong>arcos y bóvedas</strong>: el edificio tiene tres pisos de arcos superpuestos con columnas de los tres órdenes griegos — dórico en el primer piso, jónico en el segundo y corintio en el tercero. Este sistema distribuyó las cargas de forma tan eficiente que el edificio ha sobrevivido más de 2.000 años, terremotos incluidos.
+
+El Coliseo tenía también un sistema de <strong>80 entradas</strong> numeradas que permitían a 50.000 personas entrar y salir en minutos — un problema que los estadios modernos todavía intentan resolver. Fue declarado Patrimonio de la Humanidad por la UNESCO y recibe hoy más de <strong>6 millones de visitantes</strong> al año.`,
+    datos: [
+      { ic: '📅', label: 'Año de construcción', val: '70 – 80 d.C.' },
+      { ic: '👥', label: 'Capacidad', val: 'Hasta 80.000 espectadores' },
+      { ic: '🚪', label: 'Número de entradas', val: '80 entradas numeradas' },
+      { ic: '🌍', label: 'Visitantes anuales hoy', val: 'Más de 6 millones' },
+    ],
+    preguntas: [
+      { p:'¿En qué siglo fue construido el Coliseo Romano?', ops:['Siglo III a.C.','Siglo I a.C.','Siglo I d.C.','Siglo III d.C.'], r:2, tip:'El texto dice que fue construido entre los años 70 y 80. Recuerda que "d.C." significa después de Cristo, y el siglo se calcula por las decenas.', exp:'El Coliseo fue construido entre el 70 y 80 d.C., en el siglo I después de Cristo, durante el Imperio Romano.' },
+      { p:'¿Qué sistema arquitectónico hizo tan resistente al Coliseo?', ops:['Columnas sólidas de mármol','Sistema de arcos y bóvedas','Muros de piedra maciza','Pilotes de madera bajo tierra'], r:1, tip:'El texto dedica un párrafo entero a explicar por qué el edificio ha durado 2.000 años. Busca la clave en ese párrafo.', exp:'El sistema de arcos y bóvedas distribuyó las cargas de forma tan eficiente que permitió al Coliseo sobrevivir terremotos durante 2.000 años.' },
+      { p:'¿Cuántas entradas tenía el Coliseo para gestionar el público?', ops:['40 entradas','60 entradas','80 entradas','120 entradas'], r:2, tip:'El número está en el cuarto párrafo del texto, donde se habla de algo que los estadios modernos todavía intentan imitar.', exp:'El Coliseo tenía 80 entradas numeradas que permitían a 50.000 personas entrar y salir en pocos minutos.' },
+      { p:'¿Qué órdenes griegos de columnas tiene el Coliseo, de abajo hacia arriba?', ops:['Corintio, jónico, dórico','Dórico, jónico, corintio','Jónico, corintio, dórico','Dórico, corintio, jónico'], r:1, tip:'El texto describe el orden exacto de los tres pisos. El más sencillo va primero y el más decorado va último.', exp:'Dórico (sencillo) en el primer piso, jónico (con volutas) en el segundo, y corintio (con hojas de acanto) en el tercero.' },
+    ]
+  },
+  {
+    categoria: '🎨 Arte e Historia',
+    titulo: 'Leonardo da Vinci: el hombre universal',
+    subtitulo: 'Pintor, arquitecto, ingeniero y científico del Renacimiento',
+    color: 'var(--morado)',
+    cuerpo: `Leonardo da Vinci (1452–1519) es probablemente el ser humano más versátil que haya existido. Vivió en el Renacimiento italiano, una época en que los artistas también eran científicos, filósofos y arquitectos. Leonardo fue todo eso a la vez, y más.
+
+Como pintor dejó obras que siguen siendo las más famosas del mundo. La <strong>Mona Lisa</strong> (1503–1519), hoy en el Museo del Louvre en París, es el cuadro más visitado de la historia. La <strong>Última Cena</strong> (1495–1498), pintada en una pared de Milán, es considerada la representación más perfecta de la perspectiva en la pintura.
+
+Pero quizás lo más asombroso de Leonardo fue su curiosidad científica. Sus cuadernos de notas, llenos de dibujos y escritos en <strong>espejo</strong> (de derecha a izquierda para que nadie los leyera), muestran diseños de un <strong>helicóptero</strong>, un <strong>tanque de guerra</strong>, un <strong>paracaídas</strong> y un <strong>robot</strong> — todo esto 500 años antes de que existieran. Sus estudios del cuerpo humano, basados en la disección de cadáveres, fueron los más precisos de su época.
+
+Leonardo nunca terminó muchos de sus proyectos porque siempre encontraba algo nuevo que explorar. Él mismo escribió: <em>"El hierro se oxida cuando no se usa; el agua se estanca cuando no fluye. Del mismo modo, la inactividad destruye el vigor de la mente."</em>`,
+    datos: [
+      { ic: '🗓️', label: 'Años de vida', val: '1452 – 1519 (67 años)' },
+      { ic: '🖼️', label: 'Obra más famosa', val: 'La Mona Lisa (Louvre, París)' },
+      { ic: '✍️', label: 'Peculiaridad de sus notas', val: 'Escribía en espejo (al revés)' },
+      { ic: '🔬', label: 'Inventos en sus cuadernos', val: 'Helicóptero, tanque, paracaídas, robot' },
+    ],
+    preguntas: [
+      { p:'¿Dónde se encuentra hoy la Mona Lisa?', ops:['Museo Vaticano, Roma','Museo del Prado, Madrid','Museo del Louvre, París','Galería Uffizi, Florencia'], r:2, tip:'El texto menciona la ciudad y el museo específico donde está la Mona Lisa. Es la capital de Francia.', exp:'La Mona Lisa está en el Museo del Louvre de París. Es el cuadro más visitado del mundo, con millones de visitantes cada año.' },
+      { p:'¿Por qué Leonardo escribía sus notas en espejo?', ops:['Para ejercitar la memoria','Para que nadie las leyera fácilmente','Porque era zurdo','Por una costumbre de la época'], r:1, tip:'El texto dice explícitamente la razón. Era una forma de proteger sus secretos.', exp:'Leonardo escribía de derecha a izquierda para que nadie pudiera leer fácilmente sus ideas. Solo se pueden leer con un espejo.' },
+      { p:'¿Cuál de estos inventos NO aparece en los cuadernos de Leonardo da Vinci?', ops:['Helicóptero','Automóvil','Paracaídas','Tanque de guerra'], r:1, tip:'El texto lista exactamente cuatro inventos de Leonardo. Lee con cuidado cuáles son y cuál de las opciones no está en esa lista.', exp:'El automóvil no aparece en los cuadernos de Leonardo. Sí diseñó helicóptero, paracaídas, tanque y robot, ¡hace 500 años!' },
+      { p:'¿En qué técnica pictórica es considerada maestra La Última Cena?', ops:['El uso del color rojo','La representación de la perspectiva','La pintura al fresco','El retrato de personajes reales'], r:1, tip:'El texto dice que La Última Cena es "la representación más perfecta" de una técnica específica de pintura que da sensación de profundidad.', exp:'La perspectiva es la técnica que crea sensación de profundidad en una superficie plana. Leonardo la dominó mejor que nadie.' },
+    ]
+  },
+  {
+    categoria: '🌎 Colombia',
+    titulo: 'Ciudad Perdida: la Machu Picchu colombiana',
+    subtitulo: 'Una ciudad indígena de 1.300 años en la Sierra Nevada',
+    color: 'var(--verde)',
+    cuerpo: `La Ciudad Perdida, o <strong>Teyuna</strong> en la lengua indígena Kogui, es una ciudad antigua construida por la cultura Tayrona en las montañas de la Sierra Nevada de Santa Marta. Fue construida alrededor del año <strong>700 d.C.</strong>, lo que la hace casi <strong>650 años más antigua que Machu Picchu</strong>.
+
+La ciudad está ubicada a <strong>1.300 metros de altura</strong> sobre el nivel del mar, en medio de la selva tropical. Para llegar a ella hay que caminar durante varios días por senderos de la jungla. En su apogeo, Teyuna albergó a más de <strong>3.000 personas</strong> y fue el centro político y ceremonial del pueblo Tayrona.
+
+Lo más impresionante desde el punto de vista arquitectónico son sus <strong>169 terrazas</strong> de piedra excavadas en la montaña, conectadas por escaleras de piedra tallada. Los Tayrona no solo construyeron una ciudad: crearon un sistema de acueductos y drenajes que permitía manejar las lluvias tropicales sin inundaciones. También orientaron los edificios según los puntos cardinales y el movimiento del sol.
+
+La Ciudad Perdida fue "redescubierta" por el mundo occidental en <strong>1972</strong>, cuando unos guaqueros (buscadores ilegales de tesoros) encontraron las escaleras. Hoy es uno de los destinos de ecoturismo más importantes de Colombia, y los pueblos indígenas Kogui, Wiwa y Arhuaco la consideran todavía un lugar sagrado.`,
+    datos: [
+      { ic: '📅', label: 'Año de construcción', val: 'Alrededor del 700 d.C.' },
+      { ic: '⛰️', label: 'Altura sobre el mar', val: '1.300 metros — Sierra Nevada de Santa Marta' },
+      { ic: '🪜', label: 'Terrazas de piedra', val: '169 terrazas excavadas en la montaña' },
+      { ic: '🔍', label: 'Redescubierta por Occidente', val: '1972, por guaqueros' },
+    ],
+    preguntas: [
+      { p:'¿Qué nombre le dan los indígenas Kogui a la Ciudad Perdida?', ops:['Tairona','Machu Picchu','Teyuna','Buritaca'], r:2, tip:'El primer párrafo del texto da el nombre indígena de la ciudad y dice en qué lengua es ese nombre.', exp:'Teyuna es el nombre en lengua Kogui. Significa el "corazón del mundo" para los pueblos indígenas de la Sierra Nevada.' },
+      { p:'¿Cuánto más antigua es la Ciudad Perdida que Machu Picchu?', ops:['100 años','350 años','650 años','1000 años'], r:2, tip:'El primer párrafo hace esta comparación directamente. Fue construida en el 700 d.C. y Machu Picchu en el siglo XV.', exp:'La Ciudad Perdida fue construida en el 700 d.C., unos 650 años antes que Machu Picchu (siglo XV). Es más antigua.' },
+      { p:'¿Cuántas terrazas de piedra tiene la Ciudad Perdida?', ops:['69 terrazas','89 terrazas','129 terrazas','169 terrazas'], r:3, tip:'El número exacto está en el tercer párrafo, donde se describe lo más impresionante de la arquitectura Tayrona.', exp:'Las 169 terrazas están excavadas directamente en la montaña y conectadas por escaleras de piedra tallada a mano.' },
+      { p:'¿Cómo fue redescubierta la Ciudad Perdida en 1972?', ops:['Por un equipo de arqueólogos de la Universidad Nacional','Por un fotógrafo que sobrevoló la zona','Por guaqueros buscadores de tesoros','Por un grupo de indígenas Kogui'], r:2, tip:'El último párrafo cuenta la historia del redescubrimiento. No fue un hallazgo científico planeado, sino accidental.', exp:'Paradójicamente, fueron guaqueros (buscadores ilegales de tesoros) quienes encontraron las escaleras en 1972, revelando la ciudad al mundo.' },
+    ]
+  },
+  {
+    categoria: '🏙️ Urbanismo',
+    titulo: 'La Hausmannización de París',
+    subtitulo: 'Cómo un hombre transformó la ciudad más bella del mundo',
+    color: 'var(--azul)',
+    cuerpo: `Paris no siempre fue la ciudad de bulevares amplios y edificios uniformes que conocemos hoy. Hasta mediados del siglo XIX, el centro de París era un laberinto de calles medievales estrechas, oscuras e insalubres. La transformación radical que convirtió a París en el modelo de ciudad moderna se debe a un solo hombre: el barón <strong>Georges-Eugène Haussmann</strong>.
+
+Entre <strong>1853 y 1870</strong>, el emperador Napoleón III le encargó a Haussmann transformar completamente París. El resultado fue monumental: se demolieron más de <strong>20.000 edificios</strong> y se construyeron 40.000 nuevos. Se abrieron los grandes bulevares que hoy caracterizan la ciudad — entre 60 y 120 metros de ancho. Se instalaron sistemas de <strong>alcantarillado</strong>, agua potable, parques, y alumbrado público.
+
+Desde el punto de vista arquitectónico, Haussmann impuso reglas muy estrictas: todos los edificios nuevos debían tener la misma altura (entre 17 y 20 metros), las mismas proporciones de ventanas y balcones, y fachadas de piedra caliza de color crema. Este "lenguaje común" es lo que le da a París su imagen tan uniforme y elegante.
+
+Sin embargo, la transformación tuvo un lado oscuro: más de <strong>350.000 personas pobres</strong> fueron desplazadas del centro hacia las periferias. Haussmann también ensanchó las calles parcialmente para que el ejército pudiera moverse fácilmente y controlar posibles revueltas. La ciudad bella tenía un plan de control social detrás.`,
+    datos: [
+      { ic: '👤', label: 'Responsable', val: 'Barón Georges-Eugène Haussmann' },
+      { ic: '📅', label: 'Período de transformación', val: '1853 – 1870 (17 años)' },
+      { ic: '🏗️', label: 'Edificios demolidos', val: 'Más de 20.000 edificios' },
+      { ic: '📏', label: 'Altura de nuevos edificios', val: 'Entre 17 y 20 metros (uniforme)' },
+    ],
+    preguntas: [
+      { p:'¿Quién encargó a Haussmann la transformación de París?', ops:['El rey Luis XIV','El presidente de Francia','El emperador Napoleón III','El propio Haussmann por iniciativa propia'], r:2, tip:'El segundo párrafo dice claramente quién le dio el encargo a Haussmann. Era el gobernante de Francia en esa época.', exp:'Napoleón III, sobrino de Napoleón Bonaparte, encargó la transformación entre 1853 y 1870 para modernizar la capital.' },
+      { p:'¿Qué material y color define las fachadas de los edificios de Haussmann?', ops:['Ladrillo rojo','Concreto gris','Piedra caliza de color crema','Mármol blanco'], r:2, tip:'El tercer párrafo describe las reglas estrictas que Haussmann impuso a todos los edificios. El material define el color característico de París.', exp:'La piedra caliza de color crema, extraída de las canteras de los alrededores de París, le da a la ciudad su tono cálido y uniforme.' },
+      { p:'¿Cuántas personas pobres fueron desplazadas de París por la transformación?', ops:['Más de 50.000','Más de 100.000','Más de 200.000','Más de 350.000'], r:3, tip:'El último párrafo habla del "lado oscuro" de la transformación. El número está ahí.', exp:'Más de 350.000 personas de bajos recursos fueron expulsadas del centro histórico hacia la periferia para dar paso a los nuevos edificios.' },
+      { p:'¿Qué altura debían tener los nuevos edificios según las reglas de Haussmann?', ops:['Entre 10 y 14 metros','Entre 17 y 20 metros','Entre 22 y 25 metros','Cada uno diferente'], r:1, tip:'La respuesta está en el tercer párrafo, donde se describe el "lenguaje común" que Haussmann impuso a todos los edificios.', exp:'La altura uniforme de 17 a 20 metros es una de las claves de la armonía visual de París. Junto con las fachadas idénticas, crea sensación de orden.' },
+    ]
+  },
+];
+
+let temaActual = null, temaIdx = 0, triviaIdx = 0, triviaPts = 0;
+
+function cargarTema(t) {
+  temaActual = t;
+  // Header
+  const hdr = document.getElementById('lectura-header');
+  hdr.style.borderBottom = `3px solid ${t.color}`;
+  document.getElementById('lectura-categoria').style.color = t.color;
+  document.getElementById('lectura-categoria').textContent = t.categoria;
+  document.getElementById('lectura-titulo').textContent = t.titulo;
+  document.getElementById('lectura-subtitulo').textContent = t.subtitulo;
+  document.getElementById('lectura-cuerpo').innerHTML = t.cuerpo;
+  // Datos clave
+  const datos = document.getElementById('lectura-datos');
+  datos.innerHTML = `<div style="font-size:13px;font-weight:800;color:var(--naranja2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">📌 Datos clave para recordar:</div>` +
+    t.datos.map(d => `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px">
+      <span style="font-size:18px;flex-shrink:0">${d.ic}</span>
+      <div><span style="font-size:14px;font-weight:700;color:var(--texto)">${d.label}:</span> <span style="font-size:14px;color:var(--texto2)">${d.val}</span></div>
+    </div>`).join('');
+}
+
+function nuevoTema() {
+  temaIdx = (temaIdx + 1) % TEMAS.length;
+  triviaIdx = 0; triviaPts = 0;
+  cargarTema(TEMAS[temaIdx]);
+  document.getElementById('fase-lectura').style.display = 'block';
+  document.getElementById('fase-preguntas').style.display = 'none';
+  document.getElementById('triv-final').style.display = 'none';
+  // Resetear botón a texto inicial
+  const btn = document.getElementById('btn-empezar');
+  if (btn) btn.innerHTML = '✅ Ya leí — ¡Empezar preguntas!';
+  window.scrollTo(0, 0);
+}
+
+function nuevoTemaYEmpezar() {
+  nuevoTema();
+}
+
+function volverALectura() {
+  document.getElementById('fase-preguntas').style.display = 'none';
+  document.getElementById('fase-lectura').style.display = 'block';
+  document.getElementById('triv-final').style.display = 'none';
+  // Cambiar el botón a "Continuar" porque ya inició las preguntas
+  const btn = document.getElementById('btn-empezar');
+  if (btn && triviaIdx > 0) {
+    btn.innerHTML = '▶ Continuar preguntas';
+  }
+  window.scrollTo(0, 0);
+}
+
+function iniciarPreguntas() {
+  // Solo reinicia si es un tema nuevo (triviaIdx == 0 y no hay respuestas dadas)
+  // Si volvió desde las preguntas, continúa donde quedó
+  document.getElementById('fase-lectura').style.display = 'none';
+  document.getElementById('fase-preguntas').style.display = 'block';
+  document.getElementById('triv-final').style.display = 'none';
+  const total = temaActual.preguntas.length;
+  document.getElementById('triv-total').textContent = total;
+  document.getElementById('triv-final-total').textContent = total;
+  mostrarPregunta();
+  window.scrollTo(0, 0);
+}
+
+function mostrarPregunta() {
+  const q = temaActual.preguntas[triviaIdx];
+  const total = temaActual.preguntas.length;
+  document.getElementById('triv-num').textContent = triviaIdx + 1;
+  document.getElementById('triv-pts').textContent = triviaPts;
+  document.getElementById('triv-prog').style.width = `${((triviaIdx + 1) / total) * 100}%`;
+
+  document.getElementById('trivia-container').innerHTML = `
+    <div style="background:white;border-radius:var(--r2);border:2px solid var(--borde);box-shadow:var(--sombra);overflow:hidden;margin-bottom:12px">
+      <div style="padding:18px 20px 16px">
+        <div style="font-size:12px;font-weight:800;color:var(--texto3);letter-spacing:.5px;margin-bottom:10px">PREGUNTA ${triviaIdx+1} DE ${total}</div>
+        <div style="font-size:19px;font-weight:700;color:var(--texto);line-height:1.4">${q.p}</div>
+      </div>
+      <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:8px">
+        ${q.ops.map((o,i) => `<button class="trivia-opt" onclick="responderLectura(${i})" style="font-size:16px;padding:14px 16px">
+          <span style="font-weight:800;margin-right:6px">${String.fromCharCode(65+i)})</span>${o}
+        </button>`).join('')}
+      </div>
+    </div>
+    <!-- TIP -->
+    <div id="tip-box" style="background:#fffbeb;border:2px solid rgba(245,166,35,0.5);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;display:none">
+      <div style="font-size:13px;font-weight:800;color:var(--naranja2);margin-bottom:4px">💡 Pista:</div>
+      <div style="font-size:15px;color:var(--texto2);line-height:1.5">${q.tip}</div>
+    </div>
+    <button id="btn-tip" class="btn btn-gris btn-full" onclick="mostrarTip()" style="margin-bottom:8px">
+      💡 Ver pista (si la necesito)
+    </button>
+    <div id="triv-explain-box" class="trivia-explain"></div>
+    <div id="triv-nav" style="display:none;margin-top:12px">
+      <button class="btn btn-naranja btn-full" onclick="siguientePreguntaLectura()">
+        ${triviaIdx < total - 1 ? '▶ Siguiente pregunta' : '🏁 Ver mi resultado'}
+      </button>
+    </div>
+  `;
+}
+
+function mostrarTip() {
+  document.getElementById('tip-box').style.display = 'block';
+  document.getElementById('btn-tip').style.display = 'none';
+}
+
+function responderLectura(idx) {
+  const q = temaActual.preguntas[triviaIdx];
+  const opts = document.querySelectorAll('.trivia-opt');
+  opts.forEach(o => o.disabled = true);
+  opts[q.r].classList.add('correcto');
+  if (idx === q.r) {
+    triviaPts++;
+    opts[idx].classList.add('correcto');
+  } else {
+    opts[idx].classList.add('incorrecto');
+  }
+  const exp = document.getElementById('triv-explain-box');
+  exp.innerHTML = (idx === q.r
+    ? '<span style="font-weight:800">✅ ¡Correcto!</span> '
+    : '<span style="font-weight:800">❌ No era esa.</span> ') + q.exp;
+  exp.classList.add('show');
+  document.getElementById('triv-nav').style.display = 'block';
+  document.getElementById('tip-box').style.display = 'none';
+  document.getElementById('btn-tip').style.display = 'none';
+  document.getElementById('triv-pts').textContent = triviaPts;
+}
+
+function siguientePreguntaLectura() {
+  triviaIdx++;
+  const total = temaActual.preguntas.length;
+  if (triviaIdx >= total) {
+    document.getElementById('fase-preguntas').style.display = 'none';
+    document.getElementById('triv-final').style.display = 'block';
+    document.getElementById('triv-final-pts').textContent = triviaPts;
+    document.getElementById('triv-emoji').textContent = triviaPts === total ? '🏆' : triviaPts >= total-1 ? '🎉' : triviaPts >= total/2 ? '👍' : '💪';
+    document.getElementById('triv-msg').textContent =
+      triviaPts === total ? '¡Perfecto! ¡Todas correctas! Tiene muy buena memoria.' :
+      triviaPts >= total-1 ? '¡Casi perfecto! Solo una fallida.' :
+      triviaPts >= total/2 ? '¡Bien hecho! Más de la mitad correctas.' :
+      '¡Siga intentando! La práctica hace al maestro.';
+    progreso.trivia = true; updateProg();
+  } else {
+    mostrarPregunta();
+    window.scrollTo(0, 0);
+  }
+}
+
+function reiniciarTrivia() {
+  triviaIdx = 0; triviaPts = 0;
+  document.getElementById('triv-final').style.display = 'none';
+  document.getElementById('fase-preguntas').style.display = 'block';
+  mostrarPregunta();
+  window.scrollTo(0, 0);
+}
+
+// Cargar el tema del día (rota cada día del año)
+const _hoy = new Date();
+const _diaAnio = Math.floor((_hoy - new Date(_hoy.getFullYear(),0,0)) / 86400000);
+temaIdx = _diaAnio % TEMAS.length;
+cargarTema(TEMAS[temaIdx]);
+
+// ══ MEMORIA — PALABRAS ══
+const PALABRAS_POOL = [
+  'cimiento','columna','bóveda','fachada','plano',
+  'voladizo','cornisa','dintel','arcada','claustro',
+  'mezzanine','portico','escalera','cúpula','pilares',
+  'arriate','terraza','balcón','zócalo','ménsula',
+  'lucernario','tabique','forjado','ábside','claraboya',
+];
+let palabrasActuales = [], memInt = null;
+function nuevaListaPalabras() {
+  palabrasActuales = [...PALABRAS_POOL].sort(()=>Math.random()-.5).slice(0,8);
+  const g = document.getElementById('palabras-lista');
+  g.innerHTML = palabrasActuales.map(p => `<div class="palabra-chip">${p}</div>`).join('');
+  document.getElementById('mem-result').classList.remove('show');
+  document.getElementById('mem-timer').style.display = 'none';
+  document.getElementById('mem-btn').textContent = '▶ Iniciar cronómetro';
+  if (memInt) clearInterval(memInt);
+}
+function iniciarMemoria() {
+  let t = 30;
+  const timerEl = document.getElementById('mem-timer');
+  const btn = document.getElementById('mem-btn');
+  timerEl.style.display = 'block';
+  btn.textContent = '⏳ Memorizando...';
+  btn.disabled = true;
+  memInt = setInterval(()=>{
+    t--;
+    timerEl.textContent = `00:${String(t).padStart(2,'0')}`;
+    if (t <= 0) {
+      clearInterval(memInt);
+      timerEl.textContent = '¡Tiempo! Ahora escribe.';
+      btn.textContent = '▶ Iniciar cronómetro';
+      btn.disabled = false;
+    }
+  }, 1000);
+}
+function revelarPalabras() {
+  const res = document.getElementById('mem-result');
+  res.className = 'result-box result-info show';
+  res.innerHTML = `<strong>Las 8 palabras eran:</strong><br>${palabrasActuales.join(' · ')}`;
+  progreso.memoria = true; updateProg();
+}
+nuevaListaPalabras();
+
+// ══ MEMORIA — NÚMEROS ══
+function nuevaSecuencia() {
+  const nums = Array.from({length:7},()=>Math.floor(Math.random()*9)+1).join('  ');
+  const el = document.getElementById('num-secuencia');
+  el.textContent = nums;
+  el.setAttribute('data-seq', nums);
+  document.getElementById('num-btn').textContent = '🙈 Tapar';
+  document.getElementById('num-btn').onclick = ocultarNumeros;
+}
+function ocultarNumeros() {
+  document.getElementById('num-secuencia').textContent = '? ? ? ? ? ? ?';
+  document.getElementById('num-btn').textContent = '👁️ Revelar';
+  document.getElementById('num-btn').onclick = revelarSecuencia;
+}
+function revelarSecuencia() {
+  const nums = document.getElementById('num-secuencia').getAttribute('data-seq');
+  document.getElementById('num-secuencia').textContent = nums;
+  document.getElementById('num-btn').textContent = '🙈 Tapar';
+  document.getElementById('num-btn').onclick = ocultarNumeros;
+}
+nuevaSecuencia();
+
+// ══ PAREJAS ══
+const EMOJIS_PAR = ['🌸','🦋','🌙','⭐','🎵','🍎','🌺','🦁','🐬','🎸'];
+let parFlipped = [], parMatched = 0, parIntentos = 0, parTimer = null, parSecs = 0, parCards = [];
+function iniciarParejas() {
+  parFlipped = []; parMatched = 0; parIntentos = 0; parSecs = 0;
+  if (parTimer) clearInterval(parTimer);
+  document.getElementById('par-intentos').textContent = '0';
+  document.getElementById('par-pares').textContent = '0 / 6';
+  document.getElementById('par-result').classList.remove('show');
+  const emojis = [...EMOJIS_PAR].sort(()=>Math.random()-.5).slice(0,6);
+  parCards = [...emojis,...emojis].sort(()=>Math.random()-.5);
+  const grid = document.getElementById('par-grid');
+  grid.innerHTML = parCards.map((e,i)=>`<div class="memo-card hidden" data-idx="${i}" onclick="voltearPar(this)">${e}</div>`).join('');
+  parTimer = setInterval(()=>{
+    parSecs++;
+    const m = Math.floor(parSecs/60), s = parSecs%60;
+    document.getElementById('par-tiempo').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }, 1000);
+}
+function voltearPar(card) {
+  if (card.classList.contains('matched') || parFlipped.length >= 2) return;
+  card.classList.remove('hidden');
+  parFlipped.push(card);
+  if (parFlipped.length === 2) {
+    parIntentos++;
+    document.getElementById('par-intentos').textContent = parIntentos;
+    const [a, b] = parFlipped;
+    if (a.textContent === b.textContent) {
+      setTimeout(()=>{ a.classList.add('matched'); b.classList.add('matched'); parFlipped=[]; parMatched++; document.getElementById('par-pares').textContent=`${parMatched} / 6`; if(parMatched===6){clearInterval(parTimer);const res=document.getElementById('par-result');res.className='result-box result-ok show';res.textContent=`🏆 ¡Completaste todas las parejas en ${parSecs} segundos con ${parIntentos} intentos!`;progreso.parejas=true;updateProg();}}, 400);
+    } else {
+      setTimeout(()=>{ a.classList.add('hidden'); b.classList.add('hidden'); parFlipped=[]; }, 900);
+    }
+  }
+}
+iniciarParejas();
+
+// ══ RUTINA ══
+const RUTINAS = {
+  manana: [
+    { label:'Tomar el desayuno', time:'7:00 AM', icon:'☕' },
+    { label:'Caminar 15 minutos', time:'8:00 AM', icon:'🚶' },
+    { label:'Leer el periódico o noticias', time:'9:00 AM', icon:'📰' },
+  ],
+  tarde: [
+    { label:'Almorzar bien y despacio', time:'12:00 PM', icon:'🍽️' },
+    { label:'Hacer el ejercicio de cultura general', time:'3:00 PM', icon:'🧠' },
+    { label:'Llamar a un familiar', time:'4:00 PM', icon:'📞' },
+  ],
+  noche: [
+    { label:'Cenar temprano', time:'7:00 PM', icon:'🌙' },
+  ]
+};
+let rutinaState = {};
+function renderRutina() {
+  let total = 0, done = 0;
+  ['manana','tarde','noche'].forEach(t => {
+    const el = document.getElementById('rutina-' + t);
+    el.innerHTML = RUTINAS[t].map((r,i) => {
+      const key = t+i;
+      total++;
+      if (rutinaState[key]) done++;
+      return `<div class="rutina-item ${rutinaState[key]?'done':''}" onclick="toggleRutina('${key}',this)">
+        <div class="rutina-check">${rutinaState[key]?'✓':r.icon}</div>
+        <div class="rutina-label">${r.label}</div>
+        <div class="rutina-time">${r.time}</div>
+      </div>`;
+    }).join('');
+  });
+  document.getElementById('rut-prog').style.width = `${(done/total)*100}%`;
+  document.getElementById('rut-txt').textContent = `${done} de ${total}`;
+  if (done === total) { progreso.rutina = true; updateProg(); }
+}
+function toggleRutina(key, el) {
+  rutinaState[key] = !rutinaState[key];
+  renderRutina();
+}
+function resetRutina() { rutinaState = {}; renderRutina(); }
+renderRutina();
+
+// ══ ESCRITURA — REFRANES ══
+let refranIdx = 0;
+function nuevoRefran() {
+  refranIdx = (refranIdx + 1) % REFRANES.length;
+  document.getElementById('refran-texto').textContent = REFRANES[refranIdx];
+  progreso.escritura = true; updateProg();
+}
+document.getElementById('refran-texto').textContent = REFRANES[0];
+
+// ══ ESCRITURA — FRASES DESORDENADAS ══
+const FRASES_BASE = [
+  'La arquitectura es el arte de construir espacios para vivir',
+  'Un buen plano es la base de toda gran construcción',
+  'El espacio y la luz son los materiales del arquitecto',
+  'La fachada es el rostro que un edificio muestra al mundo',
+  'Diseñar bien es resolver problemas con elegancia y orden',
+  'La columna sostiene el peso y define el ritmo del espacio',
+  'Todo gran edificio comienza con una idea clara en el papel',
+  'La escala humana es el principio de toda buena arquitectura',
+];
+let fraseActual = '';
+function nuevaFrase() {
+  fraseActual = FRASES_BASE[Math.floor(Math.random()*FRASES_BASE.length)];
+  const palabras = fraseActual.split(' ').sort(()=>Math.random()-.5);
+  const cont = document.getElementById('frase-desordenada');
+  cont.innerHTML = palabras.map(p=>`<div style="background:white;border:2px solid rgba(245,166,35,0.5);border-radius:10px;padding:8px 14px;font-size:16px;font-weight:700;color:var(--naranja2)">${p}</div>`).join('');
+  document.getElementById('frase-respuesta').classList.remove('show');
+  document.getElementById('frase-btn').style.display = 'inline-flex';
+}
+function verRespuestaFrase() {
+  const res = document.getElementById('frase-respuesta');
+  res.textContent = '✅ ' + fraseActual;
+  res.classList.add('show');
+  progreso.escritura = true; updateProg();
+}
+nuevaFrase();
+
+// ══ ESCRITURA — COMPLETAR ══
+const COMPLETAR = [
+  { pista:'Parte inferior de un edificio que va enterrada en el suelo', oculta:'C _ M _ _ N T O', resp:'CIMIENTO', extra:'El cimiento transfiere las cargas del edificio al terreno. Su diseño depende del tipo de suelo y el peso de la estructura.' },
+  { pista:'Cubierta curva que cubre un espacio interior, típica de iglesias y palacios', oculta:'B _ V _ D A', resp:'BÓVEDA', extra:'La bóveda permite cubrir grandes espacios sin columnas intermedias. Los romanos la perfeccionaron hace más de 2.000 años.' },
+  { pista:'Parte saliente de un edificio que sobresale sin apoyo visible desde abajo', oculta:'V _ L _ D I Z O', resp:'VOLADIZO', extra:'Los voladizos son posibles gracias al concreto armado y el acero. Frank Lloyd Wright los usó magistralmente en Fallingwater.' },
+  { pista:'Cara exterior principal de un edificio', oculta:'F _ C H _ D A', resp:'FACHADA', extra:'La fachada es la "cara" del edificio. Comunica el carácter, el uso y el estilo arquitectónico de la construcción.' },
+  { pista:'Abertura en el techo para permitir la entrada de luz natural', oculta:'L _ C _ R N _ R I O', resp:'LUCERNARIO', extra:'El lucernario o claraboya ilumina espacios interiores de forma natural. Es muy valorado en museos, escaleras y pasillos.' },
+  { pista:'Elemento horizontal que cubre el vano de una puerta o ventana', oculta:'D _ N T _ L', resp:'DINTEL', extra:'El dintel es el elemento estructural que soporta la carga sobre un vano. Los griegos lo usaron en sus templos.' },
+  { pista:'Elemento vertical que soporta cargas, típico en templos griegos', oculta:'C _ L U M N A', resp:'COLUMNA', extra:'La columna griega tiene tres órdenes: dórico, jónico y corintio, cada uno con proporciones y decoración distintas.' },
+  { pista:'Representación gráfica a escala de una construcción vista desde arriba', oculta:'P L _ N T A', resp:'PLANTA', extra:'La planta o planta arquitectónica es la vista desde arriba de un edificio. Es uno de los dibujos fundamentales del proyecto.' },
+  { pista:'Patio interior cubierto de galerías, típico en monasterios e iglesias', oculta:'C L _ U S T R O', resp:'CLAUSTRO', extra:'El claustro es un espacio de meditación y circulación. Los más famosos están en monasterios medievales europeos.' },
+  { pista:'Gran cúpula semiesférica que corona una iglesia o edificio público', oculta:'C Ú P _ L A', resp:'CÚPULA', extra:'La cúpula más famosa del mundo es la del Panteón de Roma (125 d.C.), con 43 metros de diámetro y un óculo en su cima.' },
+];
+let compIdx = 0;
+function nuevaCompletada() {
+  compIdx = (compIdx+1) % COMPLETAR.length;
+  const c = COMPLETAR[compIdx];
+  document.getElementById('completar-container').innerHTML = `
+    <div style="background:var(--azul-claro);border-radius:var(--r);padding:16px 18px;margin:12px 0;border:2px solid rgba(34,113,179,0.3)">
+      <div style="font-size:15px;font-weight:700;color:var(--texto2);margin-bottom:8px">📌 Pista: ${c.pista}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--azul);letter-spacing:6px">${c.oculta}</div>
+    </div>`;
+  document.getElementById('comp-respuesta').classList.remove('show');
+  document.getElementById('comp-btn').style.display = 'inline-flex';
+}
+function verCompletada() {
+  const c = COMPLETAR[compIdx];
+  const res = document.getElementById('comp-respuesta');
+  res.innerHTML = `<strong>${c.resp}</strong><br><span style="font-size:14px">${c.extra}</span>`;
+  res.classList.add('show');
+  progreso.escritura = true; updateProg();
+}
+nuevaCompletada();
+</script>
+</body>
+</html>
